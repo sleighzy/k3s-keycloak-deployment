@@ -155,6 +155,7 @@ section.
 [external hard drive for persistent storage]:
   https://github.com/sleighzy/raspberry-pi-k3s-homelab/blob/main/k3s.md#external-hard-drive-for-persistent-storage
 [jboss/keycloak]: https://hub.docker.com/r/jboss/keycloak
+[k3s]: https://k3s.io/
 [keycloak]: https://www.keycloak.org/
 [local path provisioner]: https://rancher.com/docs/k3s/latest/en/storage/
 [sleighzy/keycloak]: https://hub.docker.com/repository/docker/sleighzy/keycloak
