@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak
+  namespace: keycloak
+data:
+  KEYCLOAK_USER: admin@keycloak
+  KEYCLOAK_MGMT_USER: mgmt@keycloak
+  DB_VENDOR: POSTGRES
+  POSTGRES_HOST: postgres.postgres.svc.cluster.local
+  POSTGRES_PORT: "5432"
+  POSTGRES_DATABASE: keycloak
+  POSTGRES_USER: keycloak
+  PROXY_ADDRESS_FORWARDING: "true"
+  KEYCLOAK_LOGLEVEL: INFO
+  ROOT_LOGLEVEL: INFO

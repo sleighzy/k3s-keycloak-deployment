@@ -1,0 +1,107 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: keycloak
+  name: keycloak
+  labels:
+    app: keycloak
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          #image: jboss/keycloak:latest
+          image: sleighzy/keycloak:12.0.1-arm64
+          imagePullPolicy: Always
+          #command: ["ls"]
+          #args: ["-l"]
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: https
+              containerPort: 8443
+          ## volume mounts required when using H2 database
+          # volumeMounts:
+          #   - name: keycloak-data
+          #     mountPath: /opt/jboss/keycloak/standalone/data
+          env:
+            - name: KEYCLOAK_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: KEYCLOAK_USER
+            - name: KEYCLOAK_MGMT_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: KEYCLOAK_MGMT_USER
+            - name: DB_VENDOR
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: DB_VENDOR
+            - name: DB_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: POSTGRES_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: POSTGRES_PORT
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: POSTGRES_USER
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: POSTGRES_DATABASE
+            - name: PROXY_ADDRESS_FORWARDING
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: PROXY_ADDRESS_FORWARDING
+            - name: KEYCLOAK_LOGLEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: KEYCLOAK_LOGLEVEL
+            - name: ROOT_LOGLEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: ROOT_LOGLEVEL
+            - name: KEYCLOAK_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak
+                  key: KEYCLOAK_PASSWORD
+            - name: KEYCLOAK_MGMT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak
+                  key: KEYCLOAK_MGMT_PASSWORD
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak
+                  key: POSTGRES_PASSWORD
+      ## volume required when using H2 database
+      # volumes:
+      #   - name: keycloak-data
+      #     persistentVolumeClaim:
+      #       claimName: keycloak-pvc
+    

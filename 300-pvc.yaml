@@ -1,0 +1,17 @@
+# # This persistent volume claim does not need to
+# # be created when deploying with a proper database
+# # like postgres, this pvc is only needed when using
+# # the file-system H2 database.
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: keycloak-pvc
+  namespace: keycloak
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 1G
