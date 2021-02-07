@@ -41,6 +41,11 @@ spec:
                 configMapKeyRef:
                   name: keycloak
                   key: KEYCLOAK_MGMT_USER
+            - name: JAVA_OPTS_APPEND
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak
+                  key: JAVA_OPTS_APPEND
             - name: DB_VENDOR
               valueFrom:
                 configMapKeyRef:
@@ -101,4 +106,3 @@ spec:
       #   - name: keycloak-data
       #     persistentVolumeClaim:
       #       claimName: keycloak-pvc
-    
