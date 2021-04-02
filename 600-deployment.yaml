@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: keycloak
-          image: sleighzy/keycloak:12.0.1-arm64
+          image: sleighzy/keycloak:12.0.4-arm64
           imagePullPolicy: Always
           ports:
             - name: http
